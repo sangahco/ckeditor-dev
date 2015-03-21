@@ -1,0 +1,17 @@
+@charset"utf-8";
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,img,ins,kbd,q,s,samp,small,sub,sup,tt,var,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,caption,tbody,tfoot,thead,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;margin:0;padding:0;}
+em,strong,b,u,i,strike{border:0;font-size:100%;margin:0;padding:0;}
+table,tr,th,td{font-size:100%;font:inherit;margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+
+body, input, button, textarea, select { 
+ 	font-size: 12px;
+ 	line-height: 1.2;
+ 	font-family: arial, dotum, sans-serif; 
+ 	color:#4d4d4d;
+}
