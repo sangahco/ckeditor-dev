@@ -10,15 +10,18 @@
 	    	    	if( typeof attacher === 'undefined' ){
 		        		throw new Error('The file imgattacher.jsp is required.');
 		        	}
+	    	    	editor.setMode( 'wysiwyg' );
 	            	attacher.openAttacher();
 	    	    }
 	    	});
 	    	
-	    	editor.ui.addButton( 'Imageattacher', {
-	    	    label: 'Insert Image',
-	    	    command: 'insertPmisImage',
-	    	    toolbar: 'insert'
-	    	});
+	    	if ( editor.ui.addButton ) {
+		    	editor.ui.addButton( 'Imageattacher', {
+		    	    label: 'Insert Image',
+		    	    command: 'insertPmisImage',
+		    	    toolbar: 'insert'
+		    	});
+	    	}
 	    }
 	});
 	
