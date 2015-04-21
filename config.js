@@ -23,11 +23,12 @@ CKEDITOR.editorConfig = function( config ) {
 	config.allowedContent = true;
 	//config.extraAllowedContent = '*(*){*}[*]';
 	config.language = __LOCALE__ || 'en';
-	config.contentsCss = ['/ext/ckeditor-dev/content_reset.css','/ext/ckeditor-dev/contents.css'];
+	config.contentsCss = [CKEDITOR.getUrl('wysiwyg_reset.css'), CKEDITOR.getUrl('contents.css')];
 	config.docType = '<!DOCTYPE html>';
 	//config.fullPage = true;
 	config.removePlugins = 'base64image';
 	config.removeButtons = 'Image';
+	config.font_names = "맑은 고딕/맑은 고딕, sans-serif;굴림/굴림, sans-serif; HY견고딕/HY견고딕, sans-serif;" + config.font_names;
 	
 	CKEDITOR.dtd.$removeEmpty.span = 0;
 	
