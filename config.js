@@ -62,4 +62,16 @@ CKEDITOR.print = function(editor){
 	editor.execCommand('print');
 }
 
+CKEDITOR.getFullHTMLContent = function(editor){
+	var cnt = "";
+	editor.once('contentPreview', function(e){
+		// download data here
+		cnt = e.data.dataValue;
+		return false;
+	});
+	editor.execCommand('preview');
+	
+	return cnt;
+}
+
 // %LEAVE_UNMINIFIED% %REMOVE_LINE%
