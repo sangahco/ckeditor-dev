@@ -1,4 +1,4 @@
-﻿/**
+﻿﻿/**
  * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
@@ -22,21 +22,23 @@ CKEDITOR.editorConfig = function( config ) {
 	};
 	config.allowedContent = true;
 	//config.extraAllowedContent = '*(*){*}[*]';
-	config.language = __LOCALE__ || 'en';
+	if(typeof __LOCALE__ !== "undefined"){
+		config.language = __LOCALE__ || 'en';
+	}
 	config.contentsCss = [CKEDITOR.getUrl('wysiwyg_reset.css'), CKEDITOR.getUrl('contents.css')];
 	config.docType = '<!DOCTYPE html>';
 	//config.fullPage = true;
 	config.removePlugins = 'base64image';
 	config.removeButtons = 'Image';
 	config.font_names = "맑은 고딕/맑은 고딕, sans-serif;굴림/굴림, sans-serif; HY견고딕/HY견고딕, sans-serif;" + config.font_names;
-	
+	config.baseFloatZIndex = 60;
+
 	CKEDITOR.dtd.$removeEmpty.span = 0;
 	
 };
 
 CKEDITOR.download = function(editor, name){
 	editor.once('contentPreview', function(e){
-		console.log(e.data);
 		// download data here
 		$.ajax({
 			url: "/Common/TemporaryFile/uploadContent.action",
@@ -57,9 +59,19 @@ CKEDITOR.download = function(editor, name){
 	});
 	editor.execCommand('preview');
 }
+if(!CKEDITOR.editor.prototype.download){
+	CKEDITOR.editor.prototype.download = function(filename){
+		CKEDITOR.download(this, filename);
+	}
+}
 
 CKEDITOR.print = function(editor){
 	editor.execCommand('print');
+}
+if(!CKEDITOR.editor.prototype.print){
+	CKEDITOR.editor.prototype.print = function(){
+		CKEDITOR.print(this);
+	}
 }
 
 CKEDITOR.getFullHTMLContent = function(editor){
@@ -72,6 +84,11 @@ CKEDITOR.getFullHTMLContent = function(editor){
 	editor.execCommand('preview');
 	
 	return cnt;
+}
+if(!CKEDITOR.editor.prototype.getFullHTMLContent){
+	CKEDITOR.editor.prototype.getFullHTMLContent = function(){
+		return CKEDITOR.getFullHTMLContent(this);
+	}
 }
 
 // %LEAVE_UNMINIFIED% %REMOVE_LINE%
