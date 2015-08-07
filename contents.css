@@ -133,8 +133,13 @@ a > img {
 	outline: 1px solid #0782C1;
 }
 
+
+/*@@ SANGAH STUFF */
+
 /* center align for wrapper */
 .print_wrap{margin: 0 auto;}
+
+.tmp_show_on_recv,.tmp_show_on_proc,.tmp_show_on_sent{display: none;}
 
 @media print {
 	body{margin: 0;}

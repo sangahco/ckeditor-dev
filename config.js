@@ -20,8 +20,20 @@ CKEDITOR.editorConfig = function( config ) {
 		showUncommentButton: false,
 		showAutoCompleteButton: false
 	};
-	config.allowedContent = true;
+	//config.allowedContent = true;
 	//config.extraAllowedContent = '*(*){*}[*]';
+	
+	config.allowedContent = {
+	    $1: {
+	        // Use the ability to specify elements as an object.
+	        elements: CKEDITOR.dtd,
+	        attributes: true,
+	        styles: true,
+	        classes: true
+	    }
+	};
+	config.disallowedContent = 'script; *{mso-*,-ms-*}; *(mso-*)';
+
 	if(typeof __LOCALE__ !== "undefined"){
 		config.language = __LOCALE__ || 'en';
 	}
