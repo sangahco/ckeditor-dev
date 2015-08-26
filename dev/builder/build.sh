@@ -9,7 +9,7 @@ set -e
 echo "CKBuilder - Builds a release version of ckeditor-dev."
 echo ""
 
-CKBUILDER_VERSION="2.0.1"
+CKBUILDER_VERSION="2.3.0"
 CKBUILDER_URL="http://download.cksource.com/CKBuilder/$CKBUILDER_VERSION/ckbuilder.jar"
 
 PROGNAME=$(basename $0)
@@ -57,7 +57,7 @@ echo "Starting CKBuilder..."
 
 JAVA_ARGS=${ARGS// -t / } # Remove -t from arrgs
 
-VERSION="4.4.8 DEV"
+VERSION="4.5.4 DEV"
 REVISION=$(git rev-parse --verify --short HEAD)
 SEMVER_REGEX="^([0-9]+)\.([0-9]+)\.([0-9]+)(\-[0-9A-Za-z-]+)?(\+[0-9A-Za-z-]+)?$"
 
@@ -76,7 +76,7 @@ java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release $JAV
 # Copy and build tests
 if [[ "$ARGS" == *\ \-t\ * ]]; then
 	echo ""
-	echo "Coping tests..."
+	echo "Copying tests..."
 
 	cp -r ../../tests release/ckeditor/tests
 	cp -r ../../package.json release/ckeditor/package.json
