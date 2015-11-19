@@ -267,8 +267,8 @@ CKEDITOR.replaceClass = 'ckeditor';
 	 * `true`, the second, inner `<span>` is resized instead.
 	 */
 	CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight, resizeInner ) {
+		// the editor has been detached from the DOM but the object is still alive
 		if( !this.document || !this.document.getWindow().$ ){
-			// the editor has been removed from the DOM but the object is still alive
 			return;
 		}
 		
@@ -276,13 +276,18 @@ CKEDITOR.replaceClass = 'ckeditor';
 			contents = this.ui.space( 'contents' ),
 			contentsFrame = CKEDITOR.env.webkit && this.document && this.document.getWindow().$.frameElement,
 			outer;
-
+		
 		if ( resizeInner ) {
 			outer = this.container.getFirst( function( node ) {
 				return node.type == CKEDITOR.NODE_ELEMENT && node.hasClass( 'cke_inner' );
 			} );
 		} else {
 			outer = container;
+		}
+		
+		// the editor has been detached from the DOM but the object is still alive
+		if(!contents || !outer || !container){
+			return;
 		}
 
 		// Set as border box width. (#5353)
