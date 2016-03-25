@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -145,10 +145,10 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 					return toggleLockRatio( false );
 
 				// Fill width field with the width of the new image.
-				widthField.setValue( width );
+				widthField.setValue( editor.config.image2_prefillDimensions === false ? 0 : width );
 
 				// Fill height field with the height of the new image.
-				heightField.setValue( height );
+				heightField.setValue( editor.config.image2_prefillDimensions === false ? 0 : height );
 
 				// Cache the new width.
 				preLoadedWidth = width;

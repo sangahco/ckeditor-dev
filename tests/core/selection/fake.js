@@ -266,6 +266,22 @@ bender.test( {
 		assert.isTrue( editor.getSelection( 1 ).isHidden(), 'Real selection is placed in hidden element' );
 	},
 
+	'Fake-selection bookmark mark as not faked when no enclosed node found. (#13280)': function() {
+		bender.tools.selection.setWithHtml( this.editor, '<p>fo{o ba}r</p>' );
+
+		var sel = this.editor.getSelection(),
+			bookmarks = sel.createBookmarks2(),
+			selectRangesSpy = sinon.spy( sel, 'selectRanges' ),
+			warnStub = sinon.stub( CKEDITOR, 'warn' );
+
+		bookmarks.isFake = 1;
+		sel.selectBookmarks( bookmarks );
+		warnStub.restore();
+
+		assert.isTrue( selectRangesSpy.calledOnce );
+		assert.isFalse( !!sel.isFake, 'isFake is reset' );
+	},
+
 	'Fake-selection bookmark (serializable)': function() {
 		var editor = this.editor;
 

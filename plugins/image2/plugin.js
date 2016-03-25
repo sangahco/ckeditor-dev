@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -18,7 +18,7 @@
 
 	CKEDITOR.plugins.add( 'image2', {
 		// jscs:disable maximumLineLength
-		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,de-ch,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
 		// jscs:enable maximumLineLength
 		requires: 'widget,dialog',
 		icons: 'image',
@@ -385,35 +385,39 @@
 				// Note: Center alignment is detected during upcast, so only left/right cases
 				// are checked below.
 				if ( !data.align ) {
+					var alignElement = data.hasCaption ? this.element : image;
+
 					// Read the initial left/right alignment from the class set on element.
 					if ( alignClasses ) {
-						if ( this.element.hasClass( alignClasses[ 0 ] ) )
+						if ( alignElement.hasClass( alignClasses[ 0 ] ) ) {
 							data.align = 'left';
-						else if ( this.element.hasClass( alignClasses[ 2 ] ) )
+						} else if ( alignElement.hasClass( alignClasses[ 2 ] ) ) {
 							data.align = 'right';
+						}
 
-						if ( data.align )
-							this.element.removeClass( alignClasses[ alignmentsObj[ data.align ] ] );
-						else
+						if ( data.align ) {
+							alignElement.removeClass( alignClasses[ alignmentsObj[ data.align ] ] );
+						} else {
 							data.align = 'none';
+						}
 					}
 					// Read initial float style from figure/image and then remove it.
 					else {
-						data.align = this.element.getStyle( 'float' ) || image.getStyle( 'float' ) || 'none';
-						this.element.removeStyle( 'float' );
-						image.removeStyle( 'float' );
+						data.align = alignElement.getStyle( 'float' ) || 'none';
+						alignElement.removeStyle( 'float' );
 					}
 				}
 
 				// Update data.link object with attributes if the link has been discovered.
 				if ( editor.plugins.link && this.parts.link ) {
-					data.link = CKEDITOR.plugins.link.parseLinkAttributes( editor, this.parts.link );
+					data.link = helpers.getLinkAttributesParser()( editor, this.parts.link );
 
 					// Get rid of cke_widget_* classes in data. Otherwise
 					// they might appear in link dialog.
 					var advanced = data.link.advanced;
-					if ( advanced && advanced.advCSSClasses )
+					if ( advanced && advanced.advCSSClasses ) {
 						advanced.advCSSClasses = CKEDITOR.tools.trim( advanced.advCSSClasses.replace( /cke_\S+/, '' ) );
+					}
 				}
 
 				// Get rid of extra vertical space when there's no caption.
@@ -424,7 +428,7 @@
 
 				// Setup dynamic image resizing with mouse.
 				// Don't initialize resizer when dimensions are disallowed (#11004).
-				if ( editor.filter.checkFeature( this.features.dimension ) )
+				if ( editor.filter.checkFeature( this.features.dimension ) && editor.config.image2_disableResizer !== true )
 					setupResizer( this );
 
 				this.shiftState = helpers.stateShifter( this.editor );
@@ -488,6 +492,12 @@
 		};
 	}
 
+	/**
+	 * A set of Enhanced Image (image2) plugin helpers.
+	 *
+	 * @class
+	 * @singleton
+	 */
 	CKEDITOR.plugins.image2 = {
 		stateShifter: function( editor ) {
 			// Tag name used for centering non-captioned widgets.
@@ -608,7 +618,7 @@
 								newEl = wrapInLink( img, shift.newData.link );
 
 							// Set and remove all attributes associated with this state.
-							var attributes = CKEDITOR.plugins.link.getLinkAttributes( editor, newValue );
+							var attributes = CKEDITOR.plugins.image2.getLinkAttributesGetter()( editor, newValue );
 
 							if ( !CKEDITOR.tools.isEmpty( attributes.set ) )
 								( newEl || link ).setAttributes( attributes.set );
@@ -726,10 +736,13 @@
 			};
 		},
 
-		// Checks whether current ratio of the image match the natural one.
-		// by comparing dimensions.
-		// @param {CKEDITOR.dom.element} image
-		// @returns {Boolean}
+		/**
+		 * Checks whether the current image ratio matches the natural one
+		 * by comparing dimensions.
+		 *
+		 * @param {CKEDITOR.dom.element} image
+		 * @returns {Boolean}
+		 */
 		checkHasNaturalRatio: function( image ) {
 			var $ = image.$,
 				natural = this.getNatural( image );
@@ -742,11 +755,14 @@
 				Math.round( $.clientHeight / natural.height * natural.width ) == $.clientWidth;
 		},
 
-		// Returns natural dimensions of the image. For modern browsers
-		// it uses natural(Width|Height) for old ones (IE8), creates
-		// a new image and reads dimensions.
-		// @param {CKEDITOR.dom.element} image
-		// @returns {Object}
+		/**
+		 * Returns natural dimensions of the image. For modern browsers
+		 * it uses natural(Width|Height). For old ones (IE8) it creates
+		 * a new image and reads the dimensions.
+		 *
+		 * @param {CKEDITOR.dom.element} image
+		 * @returns {Object}
+		 */
 		getNatural: function( image ) {
 			var dimensions;
 
@@ -766,6 +782,51 @@
 			}
 
 			return dimensions;
+		},
+
+		/**
+		 * Returns an attribute getter function. Default getter comes from the Link plugin
+		 * and is documented by {@link CKEDITOR.plugins.link#getLinkAttributes}.
+		 *
+		 * **Note:** It is possible to override this method and use a custom getter e.g.
+		 * in the absence of the Link plugin.
+		 *
+		 * **Note:** If a custom getter is used, a data model format it produces
+		 * must be compatible with {@link CKEDITOR.plugins.link#getLinkAttributes}.
+		 *
+		 * **Note:** A custom getter must understand the data model format produced by
+		 * {@link #getLinkAttributesParser} to work correctly.
+		 *
+		 * @returns {Function} A function that gets (composes) link attributes.
+		 * @since 4.5.5
+		 */
+		getLinkAttributesGetter: function() {
+			// #13885
+			return CKEDITOR.plugins.link.getLinkAttributes;
+		},
+
+		/**
+		 * Returns an attribute parser function. Default parser comes from the Link plugin
+		 * and is documented by {@link CKEDITOR.plugins.link#parseLinkAttributes}.
+		 *
+		 * **Note:** It is possible to override this method and use a custom parser e.g.
+		 * in the absence of the Link plugin.
+		 *
+		 * **Note:** If a custom parser is used, a data model format produced by the parser
+		 * must be compatible with {@link #getLinkAttributesGetter}.
+		 *
+		 * **Note:** If a custom parser is used, it should be compatible with the
+		 * {@link CKEDITOR.plugins.link#parseLinkAttributes} data model format. Otherwise the
+		 * Link plugin dialog may not be populated correctly with parsed data. However
+		 * as long as Enhanced Image is **not** used with the Link plugin dialog, any custom data model
+		 * will work, being stored as an internal property of Enhanced Image widget's data only.
+		 *
+		 * @returns {Function} A function that parses attributes.
+		 * @since 4.5.5
+		 */
+		getLinkAttributesParser: function() {
+			// #13885
+			return CKEDITOR.plugins.link.parseLinkAttributes;
 		}
 	};
 
@@ -789,7 +850,7 @@
 				// 		</p>
 				// 	</div>
 				if ( hasCaption ) {
-					wrapper.addClass( alignClasses[1] );
+					wrapper.addClass( alignClasses[ 1 ] );
 				}
 			} else if ( align != 'none' ) {
 				wrapper.addClass( alignClasses[ alignmentsObj[ align ] ] );
@@ -871,7 +932,7 @@
 
 				// Upcast linked image like <a><img/></a>.
 			} else if ( isLinkedOrStandaloneImage( el ) ) {
-				image = el.name == 'a' ? el.children[0] : el;
+				image = el.name == 'a' ? el.children[ 0 ] : el;
 			}
 
 			if ( !image )
@@ -1333,13 +1394,12 @@
 					this.setState( CKEDITOR.TRISTATE_DISABLED );
 				else {
 					this.setState(
-						( widget.data.align == value ) ?
-								CKEDITOR.TRISTATE_ON
-							:
-								( value in allowed ) ?
-										CKEDITOR.TRISTATE_OFF
-									:
-										CKEDITOR.TRISTATE_DISABLED );
+						( widget.data.align == value ) ? (
+							CKEDITOR.TRISTATE_ON
+						) : (
+							( value in allowed ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED
+						)
+					);
 				}
 
 				evt.cancel();
@@ -1528,13 +1588,43 @@
 /**
  * A CSS class applied to the `<figure>` element of a captioned image.
  *
+ * Read more in the [documentation](#!/guide/dev_captionedimage) and see the
+ * [SDK sample](http://sdk.ckeditor.com/samples/captionedimage.html).
+ *
  *		// Changes the class to "captionedImage".
- *		CKEDITOR.config.image2_captionedClass = 'captionedImage';
+ *		config.image2_captionedClass = 'captionedImage';
  *
  * @cfg {String} [image2_captionedClass='image']
  * @member CKEDITOR.config
  */
 CKEDITOR.config.image2_captionedClass = 'image';
+
+/**
+ * Determines whether dimension inputs should be automatically filled when the image URL changes in the Enhanced Image
+ * plugin dialog window.
+ *
+ * Read more in the [documentation](#!/guide/dev_captionedimage) and see the
+ * [SDK sample](http://sdk.ckeditor.com/samples/captionedimage.html).
+ *
+ *		config.image2_prefillDimensions = false;
+ *
+ * @since 4.5
+ * @cfg {Boolean} [image2_prefillDimensions=true]
+ * @member CKEDITOR.config
+ */
+
+/**
+ * Disables the image resizer. By default the resizer is enabled.
+ *
+ * Read more in the [documentation](#!/guide/dev_captionedimage) and see the
+ * [SDK sample](http://sdk.ckeditor.com/samples/captionedimage.html).
+ *
+ *		config.image2_disableResizer = true;
+ *
+ * @since 4.5
+ * @cfg {Boolean} [image2_disableResizer=false]
+ * @member CKEDITOR.config
+ */
 
 /**
  * CSS classes applied to aligned images. Useful to take control over the way
@@ -1585,6 +1675,9 @@ CKEDITOR.config.image2_captionedClass = 'image';
  *		.align-center > figure {
  *			display: inline-block;
  *		}
+ *
+ * Read more in the [documentation](#!/guide/dev_captionedimage) and see the
+ * [SDK sample](http://sdk.ckeditor.com/samples/captionedimage.html).
  *
  * @since 4.4
  * @cfg {String[]} [image2_alignClasses=null]

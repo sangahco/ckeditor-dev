@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -13,6 +13,7 @@ var CKBUILDER_CONFIG = {
 		'bender-err.log',
 		'bender-out.log',
 		'dev',
+		'docs',
 		'.DS_Store',
 		'.editorconfig',
 		'.gitignore',
@@ -22,6 +23,7 @@ var CKBUILDER_CONFIG = {
 		'.jscsrc',
 		'.jshintignore',
 		'.jshintrc',
+		'less',
 		'.mailmap',
 		'node_modules',
 		'package.json',
