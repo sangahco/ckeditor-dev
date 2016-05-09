@@ -43,7 +43,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removePlugins = 'base64image';
 	config.removeButtons = 'Image';
 	config.font_names = "맑은 고딕/맑은 고딕, sans-serif;굴림/굴림, sans-serif; HY견고딕/HY견고딕, sans-serif;" + config.font_names;
-	config.baseFloatZIndex = 60;
+	config.baseFloatZIndex = 120;
 
 	CKEDITOR.dtd.$removeEmpty.span = 0;
 	
