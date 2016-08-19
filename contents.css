@@ -4,7 +4,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
 body, td, button, blockquote, pre {
-	font-family: dotum, sans-serif;
+	font-family: '돋움',dotum,sans-serif;
 	font-size: 13px;
 	line-height: 1.6;
 }
