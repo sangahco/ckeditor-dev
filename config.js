@@ -70,8 +70,8 @@ CKEDITOR.download = function(editor, name){
 				"fileName": name||'editor.html'
 			}));
 		});
-		
-		
+
+
 		return false;
 	});
 	editor.execCommand('preview');
@@ -99,12 +99,25 @@ CKEDITOR.getFullHTMLContent = function(editor){
 		return false;
 	});
 	editor.execCommand('preview');
-	
+
 	return cnt;
 }
 if(!CKEDITOR.editor.prototype.getFullHTMLContent){
 	CKEDITOR.editor.prototype.getFullHTMLContent = function(){
 		return CKEDITOR.getFullHTMLContent(this);
+	}
+}
+
+CKEDITOR.destroyAll = function(container){
+// destroy all ckeditor inside this container
+
+	for( var editor in CKEDITOR.instances ) {
+		if( CKEDITOR.instances.hasOwnProperty(editor)
+		&& $(container).find( CKEDITOR.instances[editor].element.$ ).length ) {
+
+			CKEDITOR.instances[editor].destroy(true);
+
+		}
 	}
 }
 
