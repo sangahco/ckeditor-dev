@@ -267,11 +267,6 @@ CKEDITOR.replaceClass = 'ckeditor';
 	 * `true`, the second, inner `<span>` is resized instead.
 	 */
 	CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight, resizeInner ) {
-		// the editor has been detached from the DOM but the object is still alive
-		if( !this.document || !this.document.getWindow().$ ){
-			return;
-		}
-		
 		var container = this.container,
 			contents = this.ui.space( 'contents' ),
 			contentsFrame = CKEDITOR.env.webkit && this.document && this.document.getWindow().$.frameElement,
