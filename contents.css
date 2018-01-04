@@ -3,31 +3,17 @@ Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
-body
-{
-	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
-	font-size: 12px;
-
-	/* Text color */
-	color: #333;
-
-	/* Remove the background color to make it transparent */
-	background-color: #fff;
-
-	margin: 20px;
-}
-
-.cke_editable
-{
+body, td, button, blockquote, pre {
+	font-family: Arial,Helvetica,sans-serif;
 	font-size: 13px;
 	line-height: 1.6;
+
+	/* Fix for missing scrollbars with RTL texts. (#10488) */
+	word-wrap: break-word;
 }
 
 blockquote
 {
-	font-style: italic;
-	font-family: Georgia, Times, "Times New Roman", serif;
 	padding: 2px 0;
 	border-style: solid;
 	border-color: #ccc;
@@ -48,85 +34,104 @@ blockquote
 	border-right-width: 5px;
 }
 
-a
-{
-	color: #0782C1;
+a{color:#0782C1;}
+ol,ul,dl{margin-right:0;padding:0 40px;}
+h1,h2,h3,h4,h5,h6{font-weight:400;line-height:1.2;}
+hr{border:0;border-top:1px solid #ccc;}
+img.right{border:1px solid #ccc;float:right;margin-left:15px;padding:5px;}
+img.left{border:1px solid #ccc;float:left;margin-right:15px;padding:5px;}
+pre{-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4;white-space:pre-wrap;word-wrap:break-word;}
+.marker{background-color:#FF0;}
+figure{background:rgba(0,0,0,0.05);border:solid 1px #ccc;border-radius:2px;display:inline-block;margin:10px 20px;padding:10px;text-align:center;}
+figure > figcaption{display:block;text-align:center;}
+a > img{border:none;margin:1px;outline:1px solid #0782C1;padding:1px;}
+
+
+/*@@ SANGAH STUFF */
+
+/* center align for wrapper */
+.print_wrap{margin: 0 auto;}
+
+.tmp_show_on_recv,.tmp_show_on_proc,.tmp_show_on_sent{display: none;}
+
+body[contenteditable=false] .input_field{
+	border-width: 0;
 }
 
-ol,ul,dl
-{
-	/* IE7: reset rtl list margin. (#7334) */
-	*margin-right: 0px;
-	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
-	padding: 0 40px;
+@media print {
+	body{margin: 0;}
+	.input_field{border-width: 0;}
 }
 
-h1,h2,h3,h4,h5,h6
+/* Widget Styles */
+.code-featured
 {
-	font-weight: normal;
-	line-height: 1.2;
+	border: 5px solid red;
 }
 
-hr
+.math-featured
 {
-	border: 0px;
-	border-top: 1px solid #ccc;
+	padding: 20px;
+	box-shadow: 0 0 2px rgba(200, 0, 0, 1);
+	background-color: rgba(255, 0, 0, 0.05);
+	margin: 10px;
 }
 
-img.right
+.image-clean
 {
-	border: 1px solid #ccc;
-	float: right;
-	margin-left: 15px;
-	padding: 5px;
+	border: 0;
+	background: none;
+	padding: 0;
 }
 
-img.left
+.image-clean > figcaption
 {
-	border: 1px solid #ccc;
-	float: left;
-	margin-right: 15px;
-	padding: 5px;
+	font-size: .9em;
+	text-align: right;
 }
 
-pre
+.image-grayscale
 {
-	white-space: pre-wrap; /* CSS 2.1 */
-	word-wrap: break-word; /* IE7 */
-	-moz-tab-size: 4;
-	tab-size: 4;
+	background-color: white;
+	color: #666;
 }
 
-.marker
+.image-grayscale img, img.image-grayscale
 {
-	background-color: Yellow;
+	filter: grayscale(100%);
 }
 
-span[lang]
+.embed-240p
 {
-	font-style: italic;
+	max-width: 426px;
+	max-height: 240px;
+	margin:0 auto;
 }
 
-figure
+.embed-360p
 {
-	text-align: center;
-	border: solid 1px #ccc;
-	border-radius: 2px;
-	background: rgba(0,0,0,0.05);
-	padding: 10px;
-	margin: 10px 20px;
-	display: inline-block;
+	max-width: 640px;
+	max-height: 360px;
+	margin:0 auto;
 }
 
-figure > figcaption
+.embed-480p
 {
-	text-align: center;
-	display: block; /* For IE8 */
+	max-width: 854px;
+	max-height: 480px;
+	margin:0 auto;
 }
 
-a > img {
-	padding: 1px;
-	margin: 1px;
-	border: none;
-	outline: 1px solid #0782C1;
+.embed-720p
+{
+	max-width: 1280px;
+	max-height: 720px;
+	margin:0 auto;
+}
+
+.embed-1080p
+{
+	max-width: 1920px;
+	max-height: 1080px;
+	margin:0 auto;
 }

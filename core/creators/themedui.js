@@ -20,7 +20,7 @@ CKEDITOR.replaceClass = 'ckeditor';
 	 * Replaces a `<textarea>` or a DOM element (`<div>`) with a CKEditor
 	 * instance. For textareas, the initial value in the editor will be the
 	 * textarea value. For DOM elements, their `innerHTML` will be used
-	 * instead. We recommend using `<textarea>` and `<div>` elements only.
+	 * instead. It is recommended to use `<textarea>` and `<div>` elements only.
 	 *
 	 *		<textarea id="myfield" name="myfield"></textarea>
 	 *		...
@@ -79,10 +79,10 @@ CKEDITOR.replaceClass = 'ckeditor';
 	 *		// Replace all <textarea class="myClassName"> elements in the page.
 	 *		CKEDITOR.replaceAll( 'myClassName' );
 	 *
-	 *		// Selectively replace <textarea> elements, based on custom assertions.
+	 *		// Selectively replace <textarea> elements, based on a custom evaluation function.
 	 *		CKEDITOR.replaceAll( function( textarea, config ) {
-	 *			// An assertion function that needs to be evaluated for the <textarea>
-	 *			// to be replaced. It must explicitely return "false" to ignore a
+	 *			// A function that needs to be evaluated for the <textarea>
+	 *			// to be replaced. It must explicitly return "false" to ignore a
 	 *			// specific <textarea>.
 	 *			// You can also customize the editor instance by having the function
 	 *			// modify the "config" parameter.
@@ -109,7 +109,7 @@ CKEDITOR.replaceClass = 'ckeditor';
 	 *		</html>
 	 *
 	 * @param {String} [className] The `<textarea>` class name.
-	 * @param {Function} [function] An assertion function that must return `true` for a `<textarea>`
+	 * @param {Function} [evaluator] An evaluation function that must return `true` for a `<textarea>`
 	 * to be replaced with the editor. If the function returns `false`, the `<textarea>` element
 	 * will not be replaced.
 	 */
@@ -133,7 +133,7 @@ CKEDITOR.replaceClass = 'ckeditor';
 				if ( !classRegex.test( textarea.className ) )
 					continue;
 			} else if ( typeof arguments[ 0 ] == 'function' ) {
-				// An assertion function could be passed as the function parameter.
+				// An evaluation function could be passed as the function parameter.
 				// It must explicitly return "false" to ignore a specific <textarea>.
 				config = {};
 				if ( arguments[ 0 ]( textarea, config ) === false )
@@ -271,13 +271,18 @@ CKEDITOR.replaceClass = 'ckeditor';
 			contents = this.ui.space( 'contents' ),
 			contentsFrame = CKEDITOR.env.webkit && this.document && this.document.getWindow().$.frameElement,
 			outer;
-
+		
 		if ( resizeInner ) {
 			outer = this.container.getFirst( function( node ) {
 				return node.type == CKEDITOR.NODE_ELEMENT && node.hasClass( 'cke_inner' );
 			} );
 		} else {
 			outer = container;
+		}
+		
+		// the editor has been detached from the DOM but the object is still alive
+		if(!contents || !outer || !container){
+			return;
 		}
 
 		// Set as border box width. (#5353)
@@ -309,8 +314,8 @@ CKEDITOR.replaceClass = 'ckeditor';
 
 	/**
 	 * Gets the element that can be used to check the editor size. This method
-	 * is mainly used by the `resize` plugin, which adds a UI handle that can be used
-	 * to resize the editor.
+	 * is mainly used by the [Editor Resize](http://ckeditor.com/addon/resize) plugin, which adds
+	 * a UI handle that can be used to resize the editor.
 	 *
 	 * @param {Boolean} forContents Whether to return the "contents" part of the theme instead of the container.
 	 * @returns {CKEDITOR.dom.element} The resizable element.
@@ -324,6 +329,9 @@ CKEDITOR.replaceClass = 'ckeditor';
 			return null;
 
 		element = CKEDITOR.dom.element.get( element );
+		
+		if( !element ) 
+			return null;
 
 		// Avoid multiple inline editor instances on the same element.
 		if ( element.getEditor() )
@@ -467,7 +475,7 @@ CKEDITOR.replaceClass = 'ckeditor';
 
 /**
  * The current editing mode. An editing mode basically provides
- * different ways of editing or viewing the contents.
+ * different ways of editing or viewing the editor content.
  *
  *		alert( CKEDITOR.instances.editor1.mode ); // (e.g.) 'wysiwyg'
  *
