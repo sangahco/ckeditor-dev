@@ -1,5 +1,5 @@
-# Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
-# For licensing, see LICENSE.md or http://ckeditor.com/license
+# Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+# For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
 editor = ARIA description for the editor.
 editorPanel = ARIA description for the editor panel.
@@ -69,7 +69,7 @@ common.invalidCssLength = Error message displayed to the user when the specified
 common.invalidHtmlLength = Error message displayed to the user when the specified length value is not a valid HTML measurement unit.
 common.invalidInlineStyle = Error message displayed to the user when the specified style value is not a valid CSS declaration.
 common.cssLengthTooltip = Tooltip displayed for the Width and Height fields in the Table Properties dialog window explaining the correct format of these length values.
-common.unavailable = 
+common.unavailable =
 common.keyboard.8 = Label for the "Backspace" key.
 common.keyboard.13 = Label for the "Enter" key.
 common.keyboard.16 = Label for the "Shift" key.
@@ -81,3 +81,4 @@ common.keyboard.36 = Label for the "Home" key.
 common.keyboard.46 = Label for the "Delete" key.
 common.keyboard.224 = Label for the "Command" key.
 common.keyboardShortcut = ARIA message for keyboard shortcuts.
+common.optionDefault = Label for the "(Default)" option in the text styling drop-downs. Using such option restores the default styling.

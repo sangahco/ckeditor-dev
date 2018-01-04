@@ -9,6 +9,7 @@
 
 node_modules/**
 build/**
+coverage/**
 
 dev/builder/release/**
 dev/builder/ckbuilder/**
@@ -25,3 +26,6 @@ tests/plugins/mathjax/_assets/mathjax/**
 
 bender-*.log
 .project
+
+!.github/*
+.DS_Store
