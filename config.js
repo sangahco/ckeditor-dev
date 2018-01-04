@@ -1,5 +1,5 @@
-﻿﻿/**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+/**
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -7,10 +7,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-	/**
-	 * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
-	 * For licensing, see LICENSE.md or http://ckeditor.com/license
-	 */
 
 	config.skin = 'sangah';
 	config.plugins = 'dialogui,dialog,a11yhelp,basicstyles,blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,menu,contextmenu,dialogadvtab,elementspath,enterkey,entities,find,floatingspace,listblock,richcombo,font,format,horizontalrule,htmlwriter,image,indent,indentblock,indentlist,justify,fakeobjects,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastefromword,pastetext,preview,print,removeformat,resize,selectall,showblocks,showborders,sourcearea,specialchar,stylescombo,tab,table,tabletools,tableresize,toolbar,undo,wysiwygarea,codemirror,imageattacher,autolink,openlink';
