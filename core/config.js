@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -309,7 +309,7 @@ CKEDITOR.config = {
 	 * the actual plugins that are to be loaded could still be affected by two other settings:
 	 * {@link CKEDITOR.config#extraPlugins} and {@link CKEDITOR.config#removePlugins}.
 	 *
-	 * @cfg {String} [="<default list of plugins>"]
+	 * @cfg {String/String[]} [="<default list of plugins>"]
 	 */
 	plugins: '', // %REMOVE_LINE%
 
@@ -324,7 +324,7 @@ CKEDITOR.config = {
 	 *
 	 *		config.extraPlugins = 'myplugin,anotherplugin';
 	 *
-	 * @cfg
+	 * @cfg {String/String[]}
 	 */
 	extraPlugins: '',
 
@@ -339,7 +339,7 @@ CKEDITOR.config = {
 	 *
 	 *		config.removePlugins = 'elementspath,save,font';
 	 *
-	 * @cfg
+	 * @cfg {String/String[]}
 	 */
 	removePlugins: '',
 

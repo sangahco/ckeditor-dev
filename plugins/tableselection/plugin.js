@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -1046,8 +1046,9 @@
 				var node = range.getEnclosedNode();
 
 				// Set text only in case of table cells, otherwise remove whole element (#867).
-				if ( node && node.is( { td: 1, th: 1 } ) ) {
-					range.getEnclosedNode().setText( '' );
+				// Check if `node.is` is function, as returned node might be CKEDITOR.dom.text (#2089).
+				if ( node && typeof node.is === 'function' && node.is( { td: 1, th: 1 } ) ) {
+					node.setText( '' );
 				} else {
 					range.deleteContents();
 				}
