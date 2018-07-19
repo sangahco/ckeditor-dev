@@ -28,7 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
 	        classes: true
 	    }
 	};
-	config.disallowedContent = 'script; *{mso-*,-ms-*}; *(mso-*)';
+	config.disallowedContent = 'script;*{mso-*,-ms-*};*(mso-*);title;meta;link;';
 
 	if(typeof __LOCALE__ !== "undefined"){
 		config.language = __LOCALE__ || 'en';
