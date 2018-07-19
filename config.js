@@ -8,8 +8,64 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 
-	config.skin = 'sangah';
-	config.plugins = 'dialogui,dialog,a11yhelp,basicstyles,blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,menu,contextmenu,dialogadvtab,elementspath,enterkey,entities,find,floatingspace,listblock,richcombo,font,format,horizontalrule,htmlwriter,image,indent,indentblock,indentlist,justify,fakeobjects,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastefromword,pastetext,preview,print,removeformat,resize,selectall,showblocks,showborders,sourcearea,specialchar,stylescombo,tab,table,tabletools,tableresize,toolbar,undo,wysiwygarea,codemirror,imageattacher,autolink,openlink';
+	config.skin = 'moono-lisa';
+	config.plugins =
+		'a11yhelp,' +
+		'autolink,' +
+		'basicstyles,' +
+		'blockquote,' +
+		'clipboard,' +
+		'colorbutton,' +
+		'colordialog,' +
+		'contextmenu,' +
+		'dialogadvtab,' +
+		'elementspath,' +
+		'enterkey,' +
+		'entities,' +
+		'fakeobjects,' +
+		'find,' +
+		'floatingspace,' +
+		'font,' +
+		'format,' +
+		'horizontalrule,' +
+		'htmlwriter,' +
+		'image,' +
+		'imageattacher,' +
+		'indentblock,' +
+		'indentlist,' +
+		'justify,' +
+		'link,' +
+		'list,' +
+		'liststyle,' +
+		'magicline,' +
+		'maximize,' +
+		'newpage,' +
+		'openlink,' +
+		'pagebreak,' +
+		'panel,' +
+		'pastefromword,' +
+		'pastetext,' +
+		'preview,' +
+		'print,' +
+		'removeformat,' +
+		'resize,' +
+		'richcombo,' +
+		'selectall,' +
+		'showblocks,' +
+		'showborders,' +
+		'sourcearea,' +
+		'specialchar,' +
+		'stylescombo,' +
+		'tab,' +
+		'table,' +
+		'tableselection,' +
+		'tableresize,' +
+		'tabletools,' +
+		'toolbar,' +
+		'undo,' +
+		'wysiwygarea,' +
+		'codemirror';
+	
 	config.codemirror = {
 		showFormatButton: false,
 		showCommentButton: false,
