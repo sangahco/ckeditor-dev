@@ -64,7 +64,8 @@ CKEDITOR.editorConfig = function( config ) {
 		'toolbar,' +
 		'undo,' +
 		'wysiwygarea,' +
-		'codemirror';
+		'codemirror,' +
+		'embed';
 	
 	config.codemirror = {
 		showFormatButton: false,
@@ -103,6 +104,8 @@ CKEDITOR.editorConfig = function( config ) {
 	//config.pasteFromWordPromptCleanup = true;
 
 	config.openlink_enableReadOnly = true;
+
+	config.embed_provider = 'http://iframe.ly/api/oembed?url={url}&api_key=8ab06d3b30f8e7280c1fa8&callback={callback}'
 
 	CKEDITOR.dtd.$removeEmpty.span = 0;
 	
