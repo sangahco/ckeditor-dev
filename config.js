@@ -30,6 +30,7 @@ CKEDITOR.editorConfig = function( config ) {
 		'horizontalrule,' +
 		'htmlwriter,' +
 		'image,' +
+		'image2,' +
 		'imageattacher,' +
 		'indentblock,' +
 		'indentlist,' +
@@ -65,7 +66,8 @@ CKEDITOR.editorConfig = function( config ) {
 		'undo,' +
 		'wysiwygarea,' +
 		'codemirror,' +
-		'embed';
+		'embed,' +
+		'uploadimage';
 	
 	config.codemirror = {
 		showFormatButton: false,
@@ -85,7 +87,7 @@ CKEDITOR.editorConfig = function( config ) {
 	        classes: true
 	    }
 	};
-	config.disallowedContent = 'script;*{mso-*,-ms-*};*(mso-*);title;link;';
+	config.disallowedContent = 'script;*{mso-*,-ms-*};*(mso-*);link;';
 
 	if(typeof __LOCALE__ !== "undefined"){
 		config.language = __LOCALE__ || 'en';
@@ -106,6 +108,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.openlink_enableReadOnly = true;
 
 	config.embed_provider = 'http://iframe.ly/api/oembed?url={url}&api_key=8ab06d3b30f8e7280c1fa8&callback={callback}'
+
+	config.uploadUrl = '/spr/edms/image/upload.json';
 
 	CKEDITOR.dtd.$removeEmpty.span = 0;
 	
